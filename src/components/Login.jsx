@@ -73,6 +73,7 @@ class Login extends Component{
         fetch('https://just2do-server.herokuapp.com/api-token-auth/', requestOptions)
             .then(response => response.json())
             .then(data => this.props.onAuth(data.token));
+            
       }
     render(){
         return(
