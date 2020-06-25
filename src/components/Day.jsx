@@ -215,7 +215,7 @@ function DayTasks(props){
                     else{
                         return (<div/>)
                     }
-                })}~
+                })}
                 {props.tasks.slice(0).reverse().map((task, index) => {
                     if(task.day === props.getDay() && task.status){
                         return(

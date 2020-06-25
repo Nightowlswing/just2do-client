@@ -39,12 +39,12 @@ function Main() {
             .then(response => response.json())
             .then(data => setTasks(data));
     }
-    // function getCurentDate(){
-    //     return getProperDate(new Date());
-    // };
-    // function setDateToCurrent(){
-    //     changeDate(getCurentDate());
-    // }
+    function getCurrentDate(){
+        return getProperDate(new Date());
+    };
+    function setDateToCurrent(){
+        changeDate(new Date());
+    }
 
     if (token === null){
         return (
@@ -71,6 +71,8 @@ function Main() {
                 
                 <div>
                     <button onClick = {deleteToken}>log out</button>
+                    <button onClick = {setDateToCurrent}>go current</button>
+                    <span>today is {getCurrentDate()}</span>
                     <Day 
                         token = {token} 
                         onAdding = {queryTasks} 
