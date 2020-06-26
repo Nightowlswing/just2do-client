@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import '../styles/login.css'
+import '../styles/loaders.css';
+import Loader from 'react-loader-spinner';
 
 const formValid = formErrors =>{
     let valid = true;
@@ -21,6 +24,7 @@ class Login extends Component{
                 password: ""
             },
             isWaiting: false,
+            status: ''
         };
         
     }
@@ -28,9 +32,9 @@ class Login extends Component{
         e.preventDefault();
         this.setState({isWaiting: true}); 
 
-        setTimeout(() => {
-            this.setState({isWaiting: false});
-        }, 2000)
+        // setTimeout(() => {
+        //     this.setState({isWaiting: false});
+        // }, 2000)
 
         if (formValid(this.state.formErrors)) {
           this.handleUserData(this.state.email,this.state.password)
@@ -71,44 +75,76 @@ class Login extends Component{
             body: JSON.stringify({ password: pass, username: name})
         };
         fetch('https://just2do-server.herokuapp.com/api-token-auth/', requestOptions)
-            .then(response => response.json())
-            .then(data => this.props.onAuth(data.token));
+            .then(response => {
+                if (!response.ok){
+                    if(response.status === 400){
+                        this.setState({status: 'Sorry, user not found'});
+                        console.log(response);
+                    }
+                    else{
+                        alert(response.status + '' + response.statusText)
+                    }
+                }
+                return response.json()})
+            .then(data => {this.props.onAuth(data.token); this.setState({isWaiting: false});});
             
       }
     render(){
+        if(!this.state.isWaiting){
         return(
             <div className = 'SingIn'>
+                <div>
+                    <div className ='UpperLabel'>Sing in</div>
+                    <div className ='LowerLabel'>Hi there! Nice to see you again</div>
+                    
+                </div>
                 <form onSubmit = {this.handleSubmit} onChange = {this.handleChange} noValidate>
-                  <Input onChange = {this.handleChange} name = 'Username' placeholder = 'username' type = 'username'/>
-                  <Input name = 'Password' placeholder = '••••••••' type = 'password'/>
+                  <Input onChange = {this.handleChange} name = 'Username' type = 'username'/>
+                  <Input name = 'Password' type = 'password'/>
+                  <div className = 'UserNotFound'>{this.state.status}</div>
                   <Button divclassname = 'SingIn' buttonclassname = 'SubmitButton' type = 'submit' name = 'sing in'/>
                 </form>
+                
             </div>
         );
+        }else{
+            return(
+                <div className = 'CenterLoader'>
+                    <Loader
+                        type="TailSpin"
+                        color="#FF9B21"/>
+                </div>
+                );
             }
+        }
+
     
 }
 
 const Input = props => (
     <div>
-      
-      <div className = {`${props.name}`}>
-          <label className= 'FormLabel'>{props.name}</label><br/>
-          <input 
-          type = {`${props.type}`}
-          className = 'FormInput' 
-          placeholder = {`${props.placeholder}`}
-          name = {`${props.name}`}
-          noValidate
-          onChange ={props.handleChange}
-          />
-      </div>
+        <div class="group">
+            
+            <input 
+            defaultValue = ''
+            type = {props.type}
+            className = 'FormInput' 
+            // placeholder = {`${props.placeholder}`}
+            name = {`${props.name}`}
+            noValidate
+            onChange ={props.handleChange}
+            required
+            />
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label className = 'FormLabel'>{props.name}</label>
+        </div>
     </div>
     );
   
 const Button = props => (
-    <div className = {`${props.divclassname}`}>
-    <button className = {`${props.buttonclassname}`} type = {`${props.type}`}>{props.name}</button>
+    <div >
+        <button  type = {`${props.type}`} className = 'SubmitButton'>Sign in</button>
     </div>
 )
 

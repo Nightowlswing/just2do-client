@@ -1,0 +1,9 @@
+.CenterLoader{
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -20px;
+}

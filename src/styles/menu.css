@@ -1,0 +1,77 @@
+@media (max-width: 1200px){
+    @media (min-width: 600px){
+        .Menu{
+            margin-left: 60px;
+        }
+        .Today{
+            position: absolute;
+            right: 100px;
+            top: 75px;
+            color: #37AEB4;
+            font-size: 18px;
+        }
+        .MenuItem{
+            display: inline-block;
+            border: none;
+            background-color: #FAFAFA;
+            font-size: 20px;
+            margin-left: 20px;
+            color: #37AEB4;
+            transition: 0.3s;
+        }
+    }
+    @media (max-width: 600px){
+        .Menu{
+            margin-left: 60px;
+        }
+        .Today{
+            position: absolute;
+            opacity: 0;
+        }
+        .MenuItem{
+            display: inline-block;
+            border: none;
+            background-color: #FAFAFA;
+            font-size: 14px;
+            color: #37AEB4;
+            transition: 0.3s;
+        }
+}
+}
+@media (min-width: 1200px){
+    .Menu{
+        position: absolute;
+        right: 100px;
+        top: 75px;
+    }
+    .Today{
+        margin-left: 90px;
+        color: #37AEB4;
+        font-size: 18px;
+    }
+    .MenuItem{
+        display: inline-block;
+        border: none;
+        background-color: #FAFAFA;
+        font-size: 20px;
+        margin-left: 20px;
+        color: #37AEB4;
+        transition: 0.3s;
+    }
+}
+
+
+.MenuItem :active{
+    border: none
+}
+
+.MenuItem :hover{
+    color: #FF9B21;
+    transition: 0.3s;
+}
+
+.Selected{
+    text-decoration: underline;
+    color: #FF9B21;
+}
+

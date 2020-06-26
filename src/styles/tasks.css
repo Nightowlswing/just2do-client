@@ -1,0 +1,255 @@
+@media (max-width: 1200px){
+    @media (min-width: 600px){
+        .SelectedDate{
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            height: 29px;
+            width: 150px;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 200;
+            font-size: 22px;
+            margin-right: left ;
+            /* line-height: 39px; */
+            /* identical to box height */
+            letter-spacing: 0.04em;
+        
+            color: #000000;
+        }
+        .TasksBox{
+            background: #FFFFFF;
+            border: 1px solid #D3D3D3;
+            box-sizing: border-box;
+            position: relative;
+            width: calc(100% - 160px);
+            min-height: 600px;
+            height: calc(80% - 140px);
+            margin-left: 80px;
+            margin-bottom: 80px;
+            overflow: hidden;
+        }
+        .TaskButton{
+            height: 30px;
+            width: 30px;
+            border: none;
+            background-color: white;
+        }
+        .TaskInput{
+            display:inline-block;
+            /* position: absolute; */
+            padding-bottom: 8px;
+            height: 30px;
+            border: none;
+            width: 75%;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .TaskButton{
+            height: 30px;
+            width: 30px;
+            border: none;
+            background-color: #white;
+        }
+    }
+    @media (max-width: 600px){
+        .SelectedDate{
+            position: absolute;
+            bottom: 30px;
+            left: calc(50% - 55px);
+            height: 20px;
+            width: 200px;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 200;
+            font-size: 18px;
+            letter-spacing: 0.04em;
+            color: #000000;
+        }
+        .TaskInput{
+            display:inline-block;
+            /* position: absolute; */
+            padding-bottom: 8px;
+            height: 30px;
+            border: none;
+            width: 65%;
+            font-size: 20px;
+            margin-bottom: 5px;
+            background-color: #FAFAFA;
+        }
+        .TaskButton{
+            height: 30px;
+            width: 30px;
+            border: none;
+            background-color: #FAFAFA;
+        }
+    }
+}
+@media (min-width: 1200px){
+    .SelectedDate{
+        position: absolute;
+        right: 24px;
+        top: 12px;
+        height: 39px;
+        width: 200px;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 200;
+        font-size: 32px;
+        margin-right: left ;
+        /* line-height: 39px; */
+        /* identical to box height */
+    
+        letter-spacing: 0.04em;
+    
+        color: #000000;
+    }
+    .TasksBox{
+        background: #FFFFFF;
+        border: 1px solid #D3D3D3;
+        box-sizing: border-box;
+        position: relative;
+        width: calc(100% - 160px);
+        min-height: 600px;
+        height: calc(80% - 140px);
+        margin-left: 80px;
+        margin-bottom: 80px;
+        overflow: hidden;
+    }
+    .TaskInput{
+        display:inline-block;
+        /* position: absolute; */
+        padding-bottom: 8px;
+        height: 30px;
+        border: none;
+        width: 90%;
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    .TaskButton{
+        height: 30px;
+        width: 30px;
+        border: none;
+        background-color: white;
+    }
+}
+
+.Plant{
+    position: absolute;
+    pointer-events:none;
+    right: 0px;
+    bottom: 0px;
+    width: 20%;
+
+}
+
+
+
+.TaskAndForm{
+    position: relative;
+    margin: 56px 24px 12px 24px;
+}
+
+.AddTaskButton{
+    display:inline-block;
+    width: 30px;
+    height: 30px;
+    background: #79B8BB;
+    border: none;
+    border-radius: 3px;
+    position: relative;
+    transition: 0.3s;
+}
+    
+.AddTaskButton svg {
+    position: absolute; 
+    
+    left: 0;
+    top:0;
+    size: 100%;
+    width: 30px;
+    height: 30px;
+}
+.AddTaskButton:hover{
+    background: #8cd2d6;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+/* .TaskInput{
+    display:inline-block;
+    padding-bottom: 8px;
+    height: 30px;
+    border: none;
+    width: 90%;
+    font-size: 20px;
+    margin-bottom: 5px;
+} */
+
+
+
+.TaskInput:focus {
+    outline: none
+}
+
+.Task{
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.CheckBox{
+    visibility: hidden;
+    position: absolute;
+}
+
+.CheckBox + label:before{
+    cursor: pointer;
+}
+
+.CheckBox + label:before {
+    border: 2px solid #79B8BB;
+    content: "\00a0";
+    display: inline-block;
+    font-size: 25px;
+    height: 25px;
+    width: 25px;
+  }
+
+
+.CheckBox[type="checkbox"]:checked + label:before {
+    background: #FF9B21;
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    content: "\2713";
+    text-align: center;
+}
+
+.CheckBox[type="checkbox"]:checked + label:after {
+font-weight: bold;
+}
+
+
+.CheckBox[type="checkbox"]:focus + label::before {
+    outline: rgb(59, 153, 252) auto 5px;
+}
+
+.TaskButton :focus{
+    outline: none;
+}
+
+/* .CheckBox:active, .CheckBox:checked:active {
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+} */
+
+.IconSize{
+    zoom: 1.8;
+}
+
+.Invisable{
+    opacity: 0;
+}
+
+.Visable{
+    opacity: 100;
+}
+

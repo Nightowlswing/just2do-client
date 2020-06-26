@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@openfonts/montserrat_all": "^1.44.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "add": "^2.0.6",
+    "font-awesome": "^4.7.0",
     "or": "^0.2.0",
     "react": "^16.13.1",
     "react-calendar": "^3.1.0",

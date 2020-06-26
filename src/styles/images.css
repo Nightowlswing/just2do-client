@@ -1,0 +1,95 @@
+
+
+@media (max-width: 1200px){
+    @media (min-width: 600px){
+        .LeftStanding{
+            position: absolute;
+            left: 0px;
+            height: 30%;
+            bottom: 12%;
+        }
+        .RightStanding{
+            position: absolute;
+            right: 0px;
+            height: 40%;
+            bottom: 1%;
+        
+        }
+        .Logo{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
+        }
+        .InLogo{
+            display: inline-block;
+            margin-left: 60px;
+            height: 125px;
+        }
+    }
+    @media (max-width: 600px){
+        .LeftStanding{
+            position: absolute;
+            left: 0px;
+            height: 25%;
+            bottom: 8%;
+        }
+        .RightStanding{
+            position: absolute;
+            right: 0px;
+            height: 34%;
+            bottom: 1%;
+        
+        }
+        .Logo{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
+        .InLogo{
+            display: inline-block;
+            margin-left: 30px;
+            height: 100px;
+        }
+    }
+}
+
+@media (min-width: 1200px){
+    .LeftStanding{
+        position: absolute;
+        left: 0px;
+        height: 40%;
+        bottom: 23%;
+    }
+    .RightStanding{
+        position: absolute;
+        right: 0px;
+        height: 60%;
+        bottom: 1%;
+    
+    }
+    .Logo{
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 35%;
+    }
+    .InLogo{
+        display: inline-block;
+        margin-left: 100px;
+        height: 150px;
+    }
+}
+
+.Footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%
+}
+
+
+/* .Relative{
+    overflow: hidden;
+} */
+

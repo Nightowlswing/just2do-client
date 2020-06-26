@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+require('@openfonts/montserrat_all')
 ReactDOM.render(
   <React.StrictMode>
     <App />

@@ -1,0 +1,173 @@
+.SingIn{
+    font-family:'Montserrat';
+    width: 300px;
+    height: 420px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -210px;
+    margin-left: -150px;
+}
+
+/* .CenterLoader{
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -20px;
+} */
+
+
+.group{ 
+    position:relative; 
+    margin-bottom:45px; 
+}
+.FormInput{
+    color: #4F4F4F;
+    background-color: #FAFAFA;
+    font-size:18px;
+    padding:10px 10px 10px 5px;
+    display:block;
+    width:285px;
+    border:none;
+    border-bottom:1px solid #757575;
+}
+.FormInput:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+.FormLabel 				 {
+    color:#000000; 
+    font-size:18px;
+    font-weight:normal;
+    position:absolute;
+    pointer-events:none;
+    left:5px;
+    top:10px;
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.FormInput:focus ~ .FormLabel, .FormInput:valid ~.FormLabel {
+    top:-20px;
+    font-size:14px;
+    color:#37AEB4;
+}
+
+
+
+/* BOTTOM BARS ================================= */
+.bar 	{ position:relative; display:block; width:300px; }
+.bar:before, .bar:after 	{
+    content:'';
+    height:2px; 
+    width:0;
+    bottom:1px; 
+    position:absolute;
+    background:#A093AA; 
+    transition:0.2s ease all; 
+    -moz-transition:0.2s ease all; 
+    -webkit-transition:0.2s ease all;
+}
+.bar:before {
+    left:50%;
+}
+.bar:after {
+    right:50%; 
+}
+
+/* active state */
+.FormInput:focus ~ .bar:before, .FormInput:focus ~ .bar:after {
+    width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+    position:absolute;
+    height:60%; 
+    width:100px; 
+    top:25%; 
+    left:0;
+    pointer-events:none;
+    opacity:0.5;
+}
+
+/* active state */
+.FormInput:focus ~ .highlight {
+    -webkit-animation:inputHighlighter 0.3s ease;
+    -moz-animation:inputHighlighter 0.3s ease;
+    animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+    from { background:#5264AE; }
+    to 	{ width:0; background:transparent; }
+}
+
+.UpperLabel{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 27px;
+    color: #3A3A3A;
+    margin-bottom: 20px;
+}
+.LowerLabel{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 17px;
+    color: #625E5E;
+    margin-bottom: 30px;
+}
+
+.SubmitButton{
+    border: 3px solid #FF9B21;
+    background: #FAFAFA;
+    border-radius: 40px;
+    width: 240px;
+    height: 50px;
+    text-align: center;
+    margin-left: 30px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    /* line-height: 33px;  */
+    color: #37AEB4;
+    transition: 0.3s;
+}
+
+.SubmitButton:hover{
+    background: #FF9B21;
+    color: #FAFAFA;
+    font-size: 22px;
+    transition: 0.3s;
+}
+
+.SubmitButton:active{
+    background: #ff9b21cb;
+} 
+
+.UserNotFound{
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 17px;
+    color: #c72b2b;
+    margin-bottom: 30px;
+}
+

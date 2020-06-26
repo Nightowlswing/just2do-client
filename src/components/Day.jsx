@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import Loader from 'react-loader-spinner';
+import '../styles/tasks.css';
+import "font-awesome/css/font-awesome.css"
+import plant from '../images/plant.png';
+
 
 class Day extends Component{
     constructor(props){
@@ -59,7 +63,6 @@ class Day extends Component{
         };
         fetch('https://just2do-server.herokuapp.com/add/', requestOptions)
         .then(response => {
-            response.json()
             if(!response.ok){
                 alert('sorry' + response.status + ' status code returned')
             }
@@ -80,7 +83,6 @@ class Day extends Component{
                     };
                     fetch('https://just2do-server.herokuapp.com/edit/' + index + "", requestOptions)
                     .then(response => {
-                        response.json()
                         if(!response.ok){
                             alert('sorry' + response.status + ' status code returned')
                         }
@@ -102,7 +104,8 @@ class Day extends Component{
             e => {
                 e.preventDefault()
                 let value = document.getElementById(index + '').value;
-
+                let element = document.getElementById('save' + index + '');
+                element.classList.add("Invisable");
                 if (id !== 'not-added-yet'){
                     
                     const requestOptions = {
@@ -164,32 +167,39 @@ class Day extends Component{
     render(){
         if(!this.state.isWaiting)
         return(
-            <div>
+            <div className = 'TasksBox'>
                 <Current date = {this.props.day()}/>
-                <form>
-                    <input onChange = {this.handleChange}/>
-                    <button onClick = {this.handleSubmit}>
-                        Add Task
-                    </button>
-                </form>
-                <div>
-                    <DayTasks 
-                        tasks = {this.props.tasks} 
-                        onDelete = {this.deleteTask} 
-                        getDay = {this.props.day}
-                        onUpdate = {this.updateTask}
-                        onBeingDone = {this.setTaskDone}/>
+
+                <div className = 'TaskAndForm'>
+                    <form>
+                        <button onClick = {this.handleSubmit} className = 'AddTaskButton    '>
+                            <svg id="search-icon" class="search-icon">
+                            <line y1="15" x1="3" y2="15" x2="27" stroke="white" />
+                            <line x1="15" y1="3" x2="15" y2="27" stroke="white" />
+                            
+                            </svg>
+                        </button>
+                        <input className ='TaskInput' onChange = {this.handleChange}/>
+                    </form>
+                    <div>
+                        <DayTasks 
+                            tasks = {this.props.tasks} 
+                            onDelete = {this.deleteTask} 
+                            getDay = {this.props.day}
+                            onUpdate = {this.updateTask}
+                            onBeingDone = {this.setTaskDone}/>
+                    </div>
                 </div>
+                <Plant/>
             </div>
         );
         else{
             return(
-                <Loader
-                type="Puff"
-                color="#00BFFF"
-                height={100}
-                width={100}
-                timeout={3000}/>
+                <div className = 'CenterLoader'>
+                    <Loader
+                        type="TailSpin"
+                        color="#FF9B21"/>                    
+                </div> 
             );
         }
     }
@@ -239,19 +249,27 @@ function DayTasks(props){
 }
 
 const Task = (props) => {
+    let index = props.taskId + ''
+    let checkIndex = props.taskId + 'check'
     const deleteTask = props.onDelete(props.taskId);
     const updateTask = props.onUpdate(props.taskId);
     const changeTaskStatus = props.onBeingDone(props.taskId)
-    let index = props.taskId + ''
-    let checkIndex = props.taskId + 'check'
+    const onChange = () => {
+        let element = document.getElementById('save' + index);
+        element.classList.remove("Invisable");
+    }
+    
     return(
-        <div>
+        <div className = 'Task'>
             <form onSubmit = {updateTask}>
-                <input type = 'checkbox' id = {`${checkIndex}`} onChange = {changeTaskStatus} defaultChecked = {props.isCheched}/>
-                <input defaultValue = {`${props.description}`} id = {`${index}`}/>
-                <input type="submit" value="Submit"/>
-                <button onClick = {deleteTask}>
-                    delete task
+                <input class = 'CheckBox' type = 'checkbox' id = {`${checkIndex}`} onChange = {changeTaskStatus} defaultChecked = {props.isCheched}/>
+                <label for={`${checkIndex}`}/>
+                <input className ='TaskInput' defaultValue = {`${props.description}`} id = {`${index}`} onChange = {onChange}/>
+                <button className = 'TaskButton Invisable' type="submit" id= {`save${index}`}>
+                    <i className = 'fa fa-check IconSize'></i>
+                </button>
+                <button className = 'TaskButton' onClick = {deleteTask}>
+                    <i className="fa fa-trash IconSize"></i>
                 </button>
             </form>
         </div>
@@ -261,10 +279,16 @@ const Task = (props) => {
 
 const Current = (props) => {
     return(
-        <span>
+        <div className = 'SelectedDate'>
             {props.date}
-        </span>
+        </div>
     );
 }
+
+const Plant = () => (
+
+    <img src={plant} alt="Background plant" className = 'Plant  '/>
+
+);
 
 export default Day;
