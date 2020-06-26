@@ -214,6 +214,7 @@ function DayTasks(props){
                     if(task.day === props.getDay() && !task.status){
                         return(
                             <Task 
+                            
                             index = {index} 
                             taskId = {task.id} 
                             description = {task.description}
@@ -258,23 +259,41 @@ const Task = (props) => {
         let element = document.getElementById('save' + index);
         element.classList.remove("Invisable");
     }
-    
-    return(
-        <div className = 'Task'>
-            <form onSubmit = {updateTask}>
-                <input class = 'CheckBox' type = 'checkbox' id = {`${checkIndex}`} onChange = {changeTaskStatus} defaultChecked = {props.isCheched}/>
-                <label for={`${checkIndex}`}/>
-                <input className ='TaskInput' defaultValue = {`${props.description}`} id = {`${index}`} onChange = {onChange}/>
-                <button className = 'TaskButton Invisable' type="submit" id= {`save${index}`}>
-                    <i className = 'fa fa-check IconSize'></i>
-                </button>
-                <button className = 'TaskButton' onClick = {deleteTask}>
-                    <i className="fa fa-trash IconSize"></i>
-                </button>
-            </form>
-        </div>
-        
-    );
+    if(props.isCheched){
+        return(
+            <div className = 'Task'>
+                <form onSubmit = {updateTask}>
+                    <input class = 'CheckBox' type = 'checkbox' id = {`${checkIndex}`} onChange = {changeTaskStatus} defaultChecked = {props.isCheched} style ={{textDecoration: 'line-through'}}/>
+                    <label for={`${checkIndex}`}/>
+                    <input className ='TaskInput' defaultValue = {`${props.description}`} id = {`${index}`} onChange = {onChange}/>
+                    <button className = 'TaskButton Invisable' type="submit" id= {`save${index}`}>
+                        <i className = 'fa fa-check IconSize'></i>
+                    </button>
+                    <button className = 'TaskButton' onClick = {deleteTask}>
+                        <i className="fa fa-trash IconSize"></i>
+                    </button>
+                </form>
+            </div>
+        );        
+    }
+    else{
+        return(
+            <div className = 'Task'>
+                <form onSubmit = {updateTask}>
+                    <input class = 'CheckBox' type = 'checkbox' id = {`${checkIndex}`} onChange = {changeTaskStatus} defaultChecked = {props.isCheched}/>
+                    <label for={`${checkIndex}`}/>
+                    <input className ='TaskInput' defaultValue = {`${props.description}`} id = {`${index}`} onChange = {onChange}/>
+                    <button className = 'TaskButton Invisable' type="submit" id= {`save${index}`}>
+                        <i className = 'fa fa-check IconSize'></i>
+                    </button>
+                    <button className = 'TaskButton' onClick = {deleteTask}>
+                        <i className="fa fa-trash IconSize"></i>
+                    </button>
+                </form>
+            </div>
+        );   
+    }
+
 }
 
 const Current = (props) => {
