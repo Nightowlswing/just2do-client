@@ -112,18 +112,18 @@ function Main() {
     }
     else{
         queryTasks();
-        if (tasks.length === 0){
-            return(
-                <div className = 'CenterLoader'>
-                    <Loader
-                        type="TailSpin"
-                        color="#FF9B21"/>                    
-                </div>
-            );
-        }
+        // if (tasks.length === 0 ){
+        //     return(
+        //         <div className = 'CenterLoader'>
+        //             <Loader
+        //                 type="TailSpin"
+        //                 color="#FF9B21"/>                    
+        //         </div>
+        //     );
+        // }
 
         
-        else{
+        // else{
             switch(pageState){
                 case 'day tasks':
                     return(
@@ -173,7 +173,7 @@ function Main() {
                             color="#FF9B21"/>                    
                     </div>
                     );
-            }
+            //}
             
             
         }
