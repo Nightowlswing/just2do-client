@@ -44,12 +44,13 @@
             width: 75%;
             font-size: 20px;
             margin-bottom: 5px;
+            vertical-align: top;
         }
         .TaskButton{
             height: 30px;
             width: 30px;
             border: none;
-            background-color: #white;
+            background-color: white;
         }
     }
     @media (max-width: 600px){
@@ -76,6 +77,7 @@
             font-size: 20px;
             margin-bottom: 5px;
             background-color: #FAFAFA;
+            vertical-align: top;
         }
         .TaskButton{
             height: 30px;
@@ -83,6 +85,7 @@
             border: none;
             background-color: #FAFAFA;
         }
+        
     }
 }
 @media (min-width: 1200px){
@@ -125,6 +128,7 @@
         width: 90%;
         font-size: 20px;
         margin-bottom: 5px;
+        vertical-align: top;
     }
     .TaskButton{
         height: 30px;

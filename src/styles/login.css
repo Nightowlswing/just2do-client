@@ -171,3 +171,6 @@
     margin-bottom: 30px;
 }
 
+.checked{
+    text-decoration: line-through;
+}

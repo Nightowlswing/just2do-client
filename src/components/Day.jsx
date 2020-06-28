@@ -263,9 +263,9 @@ const Task = (props) => {
         return(
             <div className = 'Task'>
                 <form onSubmit = {updateTask}>
-                    <input class = 'CheckBox' type = 'checkbox' id = {`${checkIndex}`} onChange = {changeTaskStatus} defaultChecked = {props.isCheched} style ={{textDecoration: 'line-through'}}/>
+                    <input class = 'CheckBox' type = 'checkbox' id = {`${checkIndex}`} onChange = {changeTaskStatus} defaultChecked = {props.isCheched}/>
                     <label for={`${checkIndex}`}/>
-                    <input className ='TaskInput' defaultValue = {`${props.description}`} id = {`${index}`} onChange = {onChange}/>
+                    <input className ='TaskInput  checked' defaultValue = {`${props.description}`} id = {`${index}`} onChange = {onChange}/>
                     <button className = 'TaskButton Invisable' type="submit" id= {`save${index}`}>
                         <i className = 'fa fa-check IconSize'></i>
                     </button>
