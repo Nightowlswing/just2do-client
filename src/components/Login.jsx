@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {sendCredentionals}from '../api/api';
 import '../styles/login.css'
 import '../styles/loaders.css';
 import Loader from 'react-loader-spinner';
@@ -32,12 +33,8 @@ class Login extends Component{
         e.preventDefault();
         this.setState({isWaiting: true}); 
 
-        // setTimeout(() => {
-        //     this.setState({isWaiting: false});
-        // }, 2000)
-
         if (formValid(this.state.formErrors)) {
-          this.handleUserData(this.state.email,this.state.password)
+          sendCredentionals(this.state.email, this.state.password, this.setState.bind(this), this.props.onAuth.bind(this))
         }
         else {
           alert('FORM IS INVALID');
@@ -68,27 +65,6 @@ class Login extends Component{
        
         this.setState({formErrors, [name]: value});
     }
-    handleUserData(name, pass){
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: pass, username: name})
-        };
-        fetch('https://just2do-server.herokuapp.com/api-token-auth/', requestOptions)
-            .then(response => {
-                if (!response.ok){
-                    if(response.status === 400){
-                        this.setState({status: 'Sorry, user not found'});
-                        console.log(response);
-                    }
-                    else{
-                        alert(response.status + '' + response.statusText)
-                    }
-                }
-                return response.json()})
-            .then(data => {this.props.onAuth(data.token); this.setState({isWaiting: false});});
-            
-      }
     render(){
         if(!this.state.isWaiting){
         return(
@@ -129,7 +105,6 @@ const Input = props => (
             defaultValue = ''
             type = {props.type}
             className = 'FormInput' 
-            // placeholder = {`${props.placeholder}`}
             name = {`${props.name}`}
             noValidate
             onChange ={props.handleChange}

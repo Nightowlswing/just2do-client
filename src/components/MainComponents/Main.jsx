@@ -1,106 +1,65 @@
 import React, { useState}  from 'react';
 import Loader from 'react-loader-spinner';
-// import DayTasks from './DayTasks';
-import Day from './Day';
-import Login from './Login';
+import {getTasks} from '../../api/api';
+import Day from '../Day';
+import Login from '../Login';
 import Calendar from 'react-calendar';
-import logo from '../images/logo192.png'
-import left from '../images/standing-left.png'
-import right from '../images/standing-right.png'
-import footer from '../images/footer.png'
-import '../styles/images.css'
-import '../styles/loaders.css';
-import '../styles/menu.css';
-import '../styles/Calendar.css';
+import logo from '../../images/logo192.png'
+import left from '../../images/standing-left.png'
+import right from '../../images/standing-right.png'
+import footer from '../../images/footer.png'
+import {getProperDate, markTasked} from './MainAdditions';
+import '../../styles/images.css'
+import '../../styles/loaders.css';
+import '../../styles/menu.css';
+import '../../styles/Calendar.css';
 
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
+//the main 'entrence' to website
 function Main() {
+    //here we need user token, tasks, selected date and page(calendar ot tasks)
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [tasks, setTasks] = useState([]);
     const [date, setDate] = useState(getProperDate(new Date()));
     const [pageState, changePageState] = useState('day tasks');
-    function getProperDate(date){
-        let year = date.getFullYear()
-        let month = (date.getMonth()+1) < 10? '0' + (date.getMonth()+1+ '') : (date.getMonth()+1+ '')
-        let day = date.getDate() < 10? '0' + date.getDate() + '' : date.getDate() + ''
-        return year + '-' + month + '-' + day;
-    }
+    //function that changes selected date. Activates on date picking in calendar
     function changeDate(date){
         setDate(getProperDate(date));
         goTasks();
     }
+    //function wich returns current date in global namespace
     function getSelectedDate(){
         return date;
     }
+    //function that save token after user singed in
     function setTokenValue(token){
         localStorage.setItem('token', token);
         setToken(token);
     }
-
+    //function that deletes token and then logout happens
     function doLogout(){
         changePageState('day tasks')
         localStorage.removeItem('token')
         setToken(null)
     }
-    function queryTasks(task){
-        const requestOptions = {
-            method: 'GET',
-            headers: {'Authorization': 'Token ' + token + ''},
-            };
-        fetch('https://just2do-server.herokuapp.com/get/', requestOptions)
-            .then(response => response.json())
-            .then(data => setTasks(data));
-    }
+
+    //function for getting whell displayed date string for the page
     function getCurrentDate(){
         return getProperDate(new Date());
     };
+    //sets date to current
     function setDateToCurrent(){
         changePageState('day tasks');
         changeDate(new Date());
     }
+    //function that changes state to calendar so calendar start rendering
     function goCalendar(){
         changePageState('calendar');
     }
+    //function that changes state to tasks so calendar start rendering
     function goTasks(){
         changePageState('day tasks');
     }
 
-    function markTasked(){
-        let abrs = document.querySelectorAll('abbr')
-        if(abrs[1] !== undefined){
-            let days = Array.from(abrs).filter(
-                word => word.getAttribute('aria-label') !== 'Sunday'
-            ).filter(
-                word => word.getAttribute('aria-label') !== 'Monday'
-            ).filter(
-                word => word.getAttribute('aria-label') !== 'Tuesday'
-            ).filter(
-                word => word.getAttribute('aria-label') !== 'Wednesday'
-            ).filter(
-                word => word.getAttribute('aria-label') !== 'Thursday'
-            ).filter(
-                word => word.getAttribute('aria-label') !== 'Friday'
-            ).filter(
-                word => word.getAttribute('aria-label') !== 'Saturday'
-            )
-        
-        
-            for(let i = 0; i < tasks.length; i++){
-                let month = monthNames[new Date(tasks[i].day).getMonth()];
-                let year = new Date(tasks[i].day).getFullYear();
-                let day = new Date(tasks[i].day).getDate();
-                for(let j = 0; j < days.length; j++){
-                    if(month + ' ' + day + ', ' + year === days[j].getAttribute('aria-label') && days[j].closest('.react-calendar__tile').childElementCount < 2){
-                        let textnode = document.createElement("LI");
-                        days[j].closest('.react-calendar__tile').appendChild(textnode)
-                    }
-                }
-                
-            }
-        }
-    }
     if (token === null || token === 'undefined' || token === undefined){
         return (
             <div>
@@ -111,19 +70,7 @@ function Main() {
         );
     }
     else{
-        queryTasks();
-        // if (tasks.length === 0 ){
-        //     return(
-        //         <div className = 'CenterLoader'>
-        //             <Loader
-        //                 type="TailSpin"
-        //                 color="#FF9B21"/>                    
-        //         </div>
-        //     );
-        // }
-
-        
-        // else{
+        getTasks(token, setTasks);
             switch(pageState){
                 case 'day tasks':
                     return(
@@ -138,14 +85,14 @@ function Main() {
                             <div className = 'Today'>today is {getCurrentDate()}</div>
                             <Day 
                                 token = {token} 
-                                onAdding = {queryTasks} 
+                                // onAdding = {queryTasks} 
                                 tasks = {tasks} 
                                 day = {getSelectedDate}
                                 />
                         </div>
                     );
                 case 'calendar':
-                    markTasked();
+                    markTasked(tasks);
                     return(
                     <div>
                         <Logo className = 'InLogo'/>
@@ -173,16 +120,12 @@ function Main() {
                             color="#FF9B21"/>                    
                     </div>
                     );
-            //}
-            
-            
         }
         
     }
 }
 
 const Logo = (props) =>(
-
         <img src = {logo} alt = "Logo" className = {props.className}/>
 
 );

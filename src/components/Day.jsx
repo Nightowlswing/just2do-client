@@ -3,7 +3,7 @@ import Loader from 'react-loader-spinner';
 import '../styles/tasks.css';
 import "font-awesome/css/font-awesome.css"
 import plant from '../images/plant.png';
-
+import {handleData, removeTask, updateTaskDesc, updateTaskStatus} from '../api/api';
 
 class Day extends Component{
     constructor(props){
@@ -46,7 +46,7 @@ class Day extends Component{
             setTimeout(() => {
                 this.setState({isWaiting: false});
             }, 800)
-            this.handleData(this.state.task, this.state.token)
+            handleData(this.state.task, this.state.token, this.props.day())
         }
         else{
             alert('empty input');
@@ -54,21 +54,6 @@ class Day extends Component{
 
         
     };
-    handleData(task, token){
-
-        const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json' ,'Authorization': 'Token ' + token + ''},
-            body: JSON.stringify({ description: task, day: this.props.day()})
-        };
-        fetch('https://just2do-server.herokuapp.com/add/', requestOptions)
-        .then(response => {
-            if(!response.ok){
-                alert('sorry' + response.status + ' status code returned')
-            }
-        })
-            
-        }
     
     deleteTask = (id) => {
         let index = id + "";
@@ -76,20 +61,7 @@ class Day extends Component{
         return (
             () => {
                 if (id !== 'not-added-yet'){
-                    this.setState({isWaiting: true});
-                    const requestOptions = {
-                        method: 'DELETE',
-                        headers: {'Content-Type': 'application/json' ,'Authorization': 'Token ' + token + ''},
-                    };
-                    fetch('https://just2do-server.herokuapp.com/edit/' + index + "", requestOptions)
-                    .then(response => {
-                        if(!response.ok){
-                            alert('sorry' + response.status + ' status code returned')
-                        }
-                    })
-                    setTimeout(() => {
-                        this.setState({isWaiting: false});
-                    }, 1000)
+                    removeTask(token, index, this.setState.bind(this))
                 }
                 else{
                     alert("Sorry, u cant delete this task right now")
@@ -107,21 +79,7 @@ class Day extends Component{
                 let element = document.getElementById('save' + index + '');
                 element.classList.add("Invisable");
                 if (id !== 'not-added-yet'){
-                    
-                    const requestOptions = {
-                        method: 'PUT',
-                        headers: {'Content-Type': 'application/json' ,'Authorization': 'Token ' + token + ''},
-                        body: JSON.stringify({ description: value, day: this.props.day()})
-                    };
-                    
-                    fetch('https://just2do-server.herokuapp.com/edit/' + index + "", requestOptions)
-                    .then(response => {
-                        response.json()
-                        if(!response.ok){
-                            alert('sorry' + response.status + ' status code returned')
-                        }
-                    })
-                 
+                    updateTaskDesc(token, index, value, this.props.day())                 
                 }
                 else{
                     alert("Sorry, u cant edit this task right now")
@@ -135,27 +93,10 @@ class Day extends Component{
         let token = this.state.token;
         return (
             () => {
-                //e.preventDefault()
                 let checkbox = document.getElementById(index + 'check')
                 let value = document.getElementById(index + '').value;
-                // checkbox.checked = !checkbox.checked
-                // let value = checkbox.value;
-                // console.log(checkbox.checked);
                 if (id !== 'not-added-yet'){
-                    const requestOptions = {
-                        method: 'PUT',
-                        headers: {'Content-Type': 'application/json' ,'Authorization': 'Token ' + token + ''},
-                        body: JSON.stringify({description: value, day: this.props.day(), status: checkbox.checked})
-                    };
-                    
-                    fetch('https://just2do-server.herokuapp.com/edit/' + index + "", requestOptions)
-                    .then(response => {
-                        response.json()
-                        if(!response.ok){
-                            alert('sorry' + response.status + ' status code returned')
-                        }
-                    })
-                 
+                    updateTaskStatus(token, index, value, this.props.day(), checkbox.checked)                 
                 }
                 else{
                     alert("Sorry, u cant edit this task right now")
@@ -206,8 +147,6 @@ class Day extends Component{
 }
 
 function DayTasks(props){
-    // let tasks = []
-    // tasks = props.tasks.filter(task => task.day === props.getDay())
     return(
         <div>
                 {props.tasks.slice(0).reverse().map((task, index) => {
